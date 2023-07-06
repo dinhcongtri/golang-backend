@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	prisma "golang-prisma/db"
+	prisma "golang-prisma/api/db"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"strconv"

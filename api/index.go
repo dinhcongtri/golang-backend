@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	prisma "golang-prisma/db"
+	prisma "golang-prisma/api/db"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
@@ -194,7 +194,7 @@ func main() {
 		}
 	})
 
-	errRouter := router.Run("localhost:8080")
+	errRouter := router.Run()
 	if errRouter != nil {
 		return
 	}
