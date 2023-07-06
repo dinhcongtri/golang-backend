@@ -1,0 +1,44 @@
+datasource db {
+  // could be postgresql or mysql
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+generator db {
+  provider = "go run github.com/steebchen/prisma-client-go"
+  output   = "api/db"
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  password String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  userNote UserNote[]
+
+  @@map("user")
+}
+
+model Note {
+  id       String   @id @default(uuid())
+  content  String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  userNote UserNote[]
+
+  @@map("note")
+}
+
+model UserNote {
+  userId Int
+  noteId String
+
+  user User @relation(fields: [userId], references: [id])
+  note Note @relation(fields: [noteId], references: [id])
+
+  @@id([userId, noteId])
+  @@map("userNote")
+}
